@@ -5,7 +5,7 @@ const logger = require("morgan");
 const users = require("./routes/users");
 const employee = require("./routes/employe");
 const company = require("./routes/company");
-
+const cors = require('cors');
 const mongoose = require("mongoose");
 const listEndpoints = require('express-list-endpoints')
 
@@ -23,7 +23,8 @@ mongoose.connect(
 // Middlewares
 const app = express();
 app.use(logger("dev"));
-app.use(express.json())
+app.use(express.json());
+app.use(cors());
 //Routes
 app.use("/users", users);
 app.use("/employee", employee);
