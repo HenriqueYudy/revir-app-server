@@ -40,10 +40,9 @@ module.exports = {
   },
 
   getCompanyEmployees: async(req, res, next) => {
-
     const { companyId } = req.params;
-    const company = await Company.findById(companyId);
-    
+    const company = await Company.findById(companyId).populate('employee');
+    res.status(200).json(company);
   },
 
   newCompanyEmployee: async(req, res, next) => {
