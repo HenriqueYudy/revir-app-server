@@ -36,7 +36,7 @@ app.use(express.json());
 app.use(cors());
 //Routes
 app.use(users)
-app.use(authMiddleware);
+// app.use(authMiddleware);
 app.use("/employee", employee);
 app.use("/company", company);
 app.use("/action", action);
