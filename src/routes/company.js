@@ -2,7 +2,7 @@ const CompanyController = require("../controllers/CompanyController");
 const router = require("express-promise-router")();
 const authMiddleware = require('../middlewares/auth');
 
-router.use(authMiddleware);
+// router.use(authMiddleware);
 
 
 router

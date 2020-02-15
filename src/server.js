@@ -37,7 +37,6 @@ app.use(cors());
 //Routes
 app.use(users)
 // app.use(authMiddleware);
-//dahduiasdhasa
 app.use("/employee", employee);
 app.use("/company", company);
 app.use("/action", action);
