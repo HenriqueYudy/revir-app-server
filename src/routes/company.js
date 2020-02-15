@@ -1,5 +1,9 @@
 const CompanyController = require("../controllers/CompanyController");
 const router = require("express-promise-router")();
+const authMiddleware = require('../middlewares/auth');
+
+router.use(authMiddleware);
+
 
 router
   .route("/")
@@ -19,5 +23,10 @@ router
 router.route("/mobile/all")
       .get(CompanyController.allCompany)
 
+router.route("/authentication")
+      .post(CompanyController.authentication);
+
+router.route("/authenticationByCnpj")
+      .post(CompanyController.authenticationByCnpj);
 
 module.exports = router;

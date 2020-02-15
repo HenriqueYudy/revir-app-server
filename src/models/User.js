@@ -18,7 +18,11 @@ const userSchema = new Schema([{
     cash_back_points: Number,
     birth_date: Date,
     cell_phone: String,
-    active: Boolean
+    active: Boolean,
+    avatar: {
+        type: String,
+        required: false
+    }
  }]);
 
  userSchema.pre('save', async function (next) {

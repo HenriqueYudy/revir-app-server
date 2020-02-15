@@ -1,10 +1,19 @@
 const express = require("express");
 const logger = require("morgan");
 
+// middleware import 
+const authMiddleware = require('./middlewares/auth')
+
 // Routes Import
 const users = require("./routes/users");
 const employee = require("./routes/employe");
 const company = require("./routes/company");
+const action = require("./routes/action");
+const notification = require('./routes/Notification');
+const product = require('./routes/product');
+const userProduct = require('./routes/UserProduct');
+const userCompany = require('./routes/userCompany');
+
 const cors = require('cors');
 const mongoose = require("mongoose");
 const listEndpoints = require('express-list-endpoints')
@@ -26,14 +35,21 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(cors());
 //Routes
-app.use("/users", users);
+app.use(users)
+app.use(authMiddleware);
 app.use("/employee", employee);
 app.use("/company", company);
+app.use("/action", action);
+app.use("/notification", notification);
+app.use(product);
+app.use(userProduct);
+app.use(userCompany);
+
 console.log(app._router.path)
 
 // Catch 404 Errors and forward then to error handler
 app.use((req, res, next) => {
-  const err = new Error("Not Found");
+  const err = new Error("Not Found")  ;
   err.status = 404;
   next(err);
 });

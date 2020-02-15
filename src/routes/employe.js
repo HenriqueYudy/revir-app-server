@@ -8,6 +8,8 @@ router.route('/:employeeId')
     .get(EmployeeController.show)
     .put(EmployeeController.replaceEmployee)
     .patch(EmployeeController.update);
+router.route("/authenticate")
+    .post(EmployeeController.login);
    
 
 module.exports = router;
