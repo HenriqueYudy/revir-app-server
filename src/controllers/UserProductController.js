@@ -25,10 +25,17 @@ module.exports = {
 
     showByUser: async(req, res, next) => {
 
-        const userProduct = await UserProduct.find({}).where('user').equals(req.params.userId).populate('product');
+        const userProduct = await UserProduct.find({}).where('user').equals(req.params.userId).populate({
+            path: "product",
+            populate: {
+                path: "company",
+                model: 'company'
+            }
+        });
         if(!userProduct){
             res.status(400).json({ error : "Não foi encontrados nenhum produtos"});
         }
+    
         res.status(200).json(userProduct);
 
     },
