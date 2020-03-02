@@ -1,4 +1,5 @@
 const UserCompany = require('../models/UserCompany');
+const Company = require("../models/Company");
 
 module.exports = {
 
@@ -26,6 +27,24 @@ module.exports = {
 
     },
 
+    showByComapany: async(req, res, next) => {
+        
+        const userCompany  = await UserCompany.find({}).where('user').equals(req.params.userId);
+
+        if(!userCompany){
+            res.status(400).send({ error : "User companies not found ! "});
+        }
+
+        try{
+            const companies =  await Company.find({});
+            userCompany.push(companies);
+            res.status(200).json(userCompany);
+        }catch(err) {
+            res.status(400).send({ error :  "Companies not found ! "});
+        }
+
+    },
+    
     store: async(req, res, next) => {
         try{
             const newUserCompany = await UserCompany.create(req.body);
