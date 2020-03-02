@@ -23,6 +23,17 @@ module.exports = {
         res.status(200).json(userProduct);
     },
 
+    showByUser: async(req, res, next) => {
+
+        const userProduct = await UserProduct.find({}).where('user').equals(req.params.userId);
+        if(!userProduct){
+            res.status(400).json({ error : "Não foi encontrados nenhum produtos"});
+        }
+        res.status(200).json(userProduct);
+
+    },
+
+
     store: async(req, res, next ) => {
         try{
             const data = req.body

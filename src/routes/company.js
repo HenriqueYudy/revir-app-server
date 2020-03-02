@@ -9,6 +9,9 @@ router
   .route("/")
   .get(CompanyController.index)
   .post(CompanyController.store);
+
+router.route("/filter")
+      .get(CompanyController.indexByRequiredPoint);
 router
   .route("/:companyId")
   .get(CompanyController.show)

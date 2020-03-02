@@ -56,6 +56,10 @@ const CompanySchema = new Schema({
         ref: 'employee',
         required: false,
     }],
+    product: [{
+        type: Schema.Types.ObjectId,
+        ref: 'product'
+    }],
     location: {
         latitude: Number,
         longitude: Number
@@ -64,15 +68,9 @@ const CompanySchema = new Schema({
     logo: String,
     point_value: {
         type: Number,
-        required: true
     }
 });
 
-CompanySchema.pre('save', async function(next) {
-    const hash = await bcrypt.hash(this.password, 10);
-    this.password = hash;
-    next();
-});
 
 const Company = mongoose.model('company', CompanySchema);
 module.exports = Company;

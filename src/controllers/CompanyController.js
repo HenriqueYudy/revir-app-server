@@ -2,24 +2,41 @@ const Company = require("../models/Company");
 const Employee = require("../models/Employee");
 const bycript = require("bcryptjs");
 const authConfig = require("../config/auth.json");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-function generateToken(params = {}){
+function generateToken(params = {}) {
   const token = jwt.sign(params, authConfig.secret, {
     expiresIn: 86400
   });
   return token;
 }
 
-
 module.exports = {
   index: async (req, res, next) => {
-    const company = await Company.find({}).populate("employee");
-    res.status(200).json(company);
+    const company = await Company.find({})
+      .populate("employee")
+      .populate("product");
+    
+    
+      res.status(200).json(company);
+
   },
 
   allCompany: async (req, res, next) => {
     const company = await Company.find({});
+    res.status(200).json(company);
+  },
+
+  indexByRequiredPoint: async (req, res, next) => {
+    const company = await Company.find({}).populate({
+      path: "product",
+      match: { required_point: { $lte: 100 } }
+    })
+
+    if(!company){
+      res.status(400).json({error: "Companies not found "});
+    }
+
     res.status(200).json(company);
   },
 
@@ -36,13 +53,16 @@ module.exports = {
         return res.status(400).send({ error: "Company already existis" });
       }
 
+      const hash = await bycript.hash(company.password, 10);
+      company.password = hash;
+
       const company = await Company.create(req.body);
 
       company.password = undefined;
 
       return res.send({
         company,
-        token: generateToken({ id: company.id})
+        token: generateToken({ id: company.id })
       });
     } catch (err) {
       return res.status(400).send({ error: "Registration failed " + err });
@@ -76,36 +96,35 @@ module.exports = {
 
     const company = await Company.findOne({ email }).select("+password");
 
-    if(!company){
-      return res.status(400).send({ error : "Company not found !"});
+    if (!company) {
+      return res.status(400).send({ error: "Company not found !" });
     }
 
-    if(!(await bycript.compare(password, company.password))){
-      return res.status(400).send({ error: "Invalid password "});
+    if (!(await bycript.compare(password, company.password))) {
+      return res.status(400).send({ error: "Invalid password " });
     }
 
     const token = generateToken({ id: company.id });
 
-    res.send({token});
-
+    res.send({ token });
   },
 
-  authenticationByCnpj: async(req, res, next) => {
-    const {cnpj, password} = req.body;
+  authenticationByCnpj: async (req, res, next) => {
+    const { cnpj, password } = req.body;
 
-    const company = await Company.findOne({cnpj}).select("+password");
+    const company = await Company.findOne({ cnpj }).select("+password");
 
-    if(!company){
-      return res.status(400).send({error : "Company not found ! "});
+    if (!company) {
+      return res.status(400).send({ error: "Company not found ! " });
     }
 
-    if(!(await bycript.compare(password, company.password))){
-      return res.status(400).send({ error : "Invalid password"});
+    if (!(await bycript.compare(password, company.password))) {
+      return res.status(400).send({ error: "Invalid password" });
     }
 
-    const token = generateToken({id: company.id});
+    const token = generateToken({ id: company.id });
 
-    res.send({token});
+    res.send({ token });
   },
 
   newCompanyEmployee: async (req, res, next) => {
@@ -122,7 +141,7 @@ module.exports = {
     // Add employee to the company's employees array
     company.employee.push(newEmployee);
     // Save the company
-    await company.save();
+    await company.findByIdAndUpdate(companyId, company);
     res.status(201).json(newEmployee);
   }
 };
