@@ -47,16 +47,17 @@ module.exports = {
 
   store: async (req, res, next) => {
     const { cnpj } = req.body;
+    const newCompany  = req.body;
 
     try {
       if (await Company.findOne({ cnpj })) {
         return res.status(400).send({ error: "Company already existis" });
       }
 
-      const hash = await bycript.hash(company.password, 10);
-      company.password = hash;
-
-      const company = await Company.create(req.body);
+      const hash = await bycript.hash(newCompany.password, 10);
+      newCompany.password = hash;
+      
+      const company = await Company.create(newCompany);
 
       company.password = undefined;
 
