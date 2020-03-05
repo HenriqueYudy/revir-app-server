@@ -107,7 +107,7 @@ module.exports = {
 
     const token = generateToken({ id: company.id });
 
-    res.send({ token });
+    res.json({ "token": token, "company": company });
   },
 
   authenticationByCnpj: async (req, res, next) => {
@@ -125,7 +125,7 @@ module.exports = {
 
     const token = generateToken({ id: company.id });
 
-    res.send({ token });
+    res.json({ "token": token, "company": company })
   },
 
   newCompanyEmployee: async (req, res, next) => {
