@@ -23,6 +23,17 @@ module.exports = {
     res.status(200).json(product);
   },
 
+  indexByCompany: async (req , res, next) => {
+
+    const products = await Product.find({}).where('company').equals(req.params.companyId);
+
+    if(!products){
+      res.status(400).json({ error : "Companies product not found " });
+    }
+
+    res.status(200).json(products);
+  },
+
   show: async (req, res, next) => {
     const product = await Product.findById(req.params.productId).populate(
       "company"
