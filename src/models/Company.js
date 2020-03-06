@@ -68,7 +68,8 @@ const CompanySchema = new Schema({
     logo: String,
     point_value: {
         type: Number,
-    }
+    },
+    parameter: Number,
 });
 
 
