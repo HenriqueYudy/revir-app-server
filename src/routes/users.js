@@ -3,8 +3,6 @@ const UserController = require('../controllers/UserController');
 const multer = require('multer');
 const multerConfig = require('../middlewares/multer');
 
-
-
 routes.get('/user', UserController.index);
 routes.post('/user', UserController.store);
 routes.post('/user/avatarUpload', multer(multerConfig).single("file"), UserController.saveAvatar);

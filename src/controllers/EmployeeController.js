@@ -69,6 +69,10 @@ module.exports = {
     const data = req.body;
 
     const result = await Employee.findByIdAndUpdate(employeeId, data);
+
+    if(!result){
+      res.status(400).json({ message:  "Employee cannot be updated ! "});
+    }
     res.status(200).json({ success: true });
   },
 

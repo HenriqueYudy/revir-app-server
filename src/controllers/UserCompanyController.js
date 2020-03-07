@@ -27,8 +27,7 @@ module.exports = {
       .where("user")
       .equals(req.params.userId)
       .where("company")
-      .equals(req.params.companyId)
-      
+      .equals(req.params.companyId);
 
     if (!userCompany) {
       res.status(400).send({ error: "User companies not found !" });
@@ -63,6 +62,34 @@ module.exports = {
     }
   },
 
+  favoriteAndDesafavoriteCompany: async (req, res, next) => {
+    const companyId = req.query.company;
+    const userId = req.query.user;
+    const userCompany = await UserCompany.findOne({
+      company: companyId,
+      user: userId
+    });
+
+    if (!userCompany) {
+      console.log("nao tem relação ainda");
+      const newUSerCompany = await UserCompany.create({
+        user: userId,
+        company: companyId,
+        favorited: true,
+        earned_points: 0
+      });
+      res.status(200).json(newUSerCompany);
+    } else {
+      userCompany.favorited = !userCompany.favorited;
+      const updateUserCompany = await UserCompany.findByIdAndUpdate(
+        userCompany._id,
+        userCompany
+      );
+      console.log("ja existe");
+      res.status(200).json(userCompany);
+    }
+  },
+
   replaceUserCompany: async (req, res, next) => {
     const { userCompanyId } = req.params;
     const data = req.body;
@@ -77,8 +104,8 @@ module.exports = {
 
     const result = await UserCompany.findByIdAndUpdate(userCompanyId, data);
 
-    if(!result){
-      res.status(400).json({ message : "User not found !"});
+    if (!result) {
+      res.status(400).json({ message: "User not found !" });
     }
 
     res.status(200).json({ success: true });

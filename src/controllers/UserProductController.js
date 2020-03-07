@@ -40,7 +40,6 @@ module.exports = {
 
     },
 
-
     store: async(req, res, next ) => {
         try{
             const data = req.body
@@ -60,6 +59,10 @@ module.exports = {
         const data = req.body;
 
         const result = await UserProduct.findByIdAndUpdate(userProductId, data);
+
+        if(!result){
+            res.status(400).json({ message: "User product cannot be updated  !" });
+        }
         res.status(200).json({ success: true });
     },
 
@@ -68,6 +71,13 @@ module.exports = {
         const data = req.body;
 
         const result = await UserProduct.findByIdAndUpdate(userProductId, data);
+
+        if(!result){
+            res.status(400).json({
+                message: "User product cannot be updated ! "
+            });
+        }
+
         res.status(200).json({ success :  true });
     }
 }
