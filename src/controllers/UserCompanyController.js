@@ -48,7 +48,6 @@ module.exports = {
 
     try {
       const companies = await Company.find({});
-      userCompany.push(companies);
       res.status(200).json(userCompany);
     } catch (err) {
       res.status(400).send({ error: "Companies not found ! " });
@@ -77,8 +76,6 @@ module.exports = {
     const data = req.body;
 
     const result = await UserCompany.findByIdAndUpdate(userCompanyId, data);
-
-    
 
     if(!result){
       res.status(400).json({ message : "User not found !"});

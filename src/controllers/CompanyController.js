@@ -145,7 +145,6 @@ module.exports = {
     // Save the company
     const newcomp = await company.save();
 
-    console.log(newcomp)
     res.status(201).json(newEmployee);
   }
 };
