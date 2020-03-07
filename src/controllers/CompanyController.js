@@ -135,14 +135,17 @@ module.exports = {
     const newEmployee = new Employee(req.body);
     //Get company
     const company = await Company.findById(companyId);
+  
     // Assign company as a employee's
     newEmployee.company = company;
     // Save the employee
     await newEmployee.save();
     // Add employee to the company's employees array
-    company.employee.push(newEmployee);
+    await company.employee.push(newEmployee.id);
     // Save the company
-    await company.findByIdAndUpdate(companyId, company);
+    const newcomp = await company.save();
+
+    console.log(newcomp)
     res.status(201).json(newEmployee);
   }
 };

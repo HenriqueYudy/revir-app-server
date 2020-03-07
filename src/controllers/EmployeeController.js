@@ -34,6 +34,8 @@ module.exports = {
       const employee = await Employee.create(req.body);
 
       employee.password = undefined;
+
+      
       return res.send({
         employee,
         token: generateToken({ id: employee.id })

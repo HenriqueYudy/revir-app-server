@@ -14,11 +14,26 @@ const userSchema = new Schema([{
         required: true,
         unique: true
     },
-    nickname: String,
-    cash_back_points: Number,
-    birth_date: Date,
-    cell_phone: String,
-    active: Boolean,
+    nickname: {
+        type: String,
+        required: true,
+    },
+    cash_back_points: {
+        type: Number,
+        required: true
+    },
+    birth_date: {
+        type: Date,
+        required: true
+    },
+    cell_phone: {
+        type: String,
+        required: true
+    },
+    active: {
+        type: Boolean,
+        required: true
+    },
     avatar: {
         type: String,
         required: false

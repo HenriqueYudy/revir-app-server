@@ -77,6 +77,13 @@ module.exports = {
     const data = req.body;
 
     const result = await UserCompany.findByIdAndUpdate(userCompanyId, data);
+
+    
+
+    if(!result){
+      res.status(400).json({ message : "User not found !"});
+    }
+
     res.status(200).json({ success: true });
   }
 };

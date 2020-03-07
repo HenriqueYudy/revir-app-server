@@ -14,11 +14,20 @@ function generateToken(params = {}) {
 module.exports = {
   index: async (req, res, next) => {
     const users = await User.find({});
+
+    if(!users){
+      res.status(400).json({ message: "Users not found !"});
+    }
+
     res.status(200).json(users);
   },
 
   show: async (req, res, next) => {
     const user = await User.findById(req.params.userId);
+
+    if(!user){
+      res.status(400).json({ message: "User not found !"});
+    }
     res.status(200).json(user);
   },
 
@@ -27,12 +36,14 @@ module.exports = {
 
     try {
       if (await User.findOne({ email })) {
-        return res.status(400).send({ error: "User already existis" });
+        return res.status(406).send({ error: "User already existis" });
       }
 
       const user = await User.create(req.body);
 
       user.password = undefined;
+      user.cash_back_points = 0;
+      user.active = true;
 
       return res.send({
         user,
