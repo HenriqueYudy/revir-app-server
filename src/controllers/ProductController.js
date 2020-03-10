@@ -91,7 +91,7 @@ module.exports = {
   },
 
   update: async (req, res, next) => {
-    const { productId } = req.paras;
+    const { productId } = req.params;
     const data = req.body;
 
     const result = await Product.findByIdAndUpdate(productId, data);

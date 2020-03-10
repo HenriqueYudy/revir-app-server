@@ -13,7 +13,7 @@ const notification = require('./routes/Notification');
 const product = require('./routes/product');
 const userProduct = require('./routes/UserProduct');
 const userCompany = require('./routes/userCompany');
-
+const promotion = require('./routes/Promotion');
 const cors = require('cors');
 const mongoose = require("mongoose");
 const listEndpoints = require('express-list-endpoints')
