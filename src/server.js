@@ -41,6 +41,7 @@ app.use("/employee", employee);
 app.use("/company", company);
 app.use("/action", action);
 app.use("/notification", notification);
+app.use("/promotion", promotion);
 app.use(product);
 app.use(userProduct);
 app.use(userCompany);
