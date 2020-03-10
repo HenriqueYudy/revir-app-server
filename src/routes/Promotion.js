@@ -12,4 +12,8 @@ router
   .put(PromotionController.replacePromotion)
   .patch(PromotionController.update);
 
+router 
+   .route('/byCompany/:companyId')
+   .get(PromotionController.showByCompany);
+
 module.exports = router;

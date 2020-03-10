@@ -25,6 +25,17 @@ module.exports = {
         
     },
 
+    showByCompany: async(req, res ,next ) => {
+
+        const promotion = await Promotion.find().where('company').equals(req.params.companyId);
+
+        if(!promotion){
+            res.status(400).json({ error : "Promotion not found !"});
+        }
+
+        res.status(200).json(promotion);
+    },
+
     store: async(req, res, next) => {
 
         try{
