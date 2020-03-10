@@ -6,12 +6,6 @@ const NotificationSchema = new Schema({
         type: String,
         required: true
     },
-    action:{
-        type: Schema.Types.ObjectId,
-        ref: 'action',
-        required: true
-    },
-
     company: {
         type: Schema.Types.ObjectId,
         ref: 'company',
