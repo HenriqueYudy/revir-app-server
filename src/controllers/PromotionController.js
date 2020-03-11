@@ -4,10 +4,10 @@ const Promotion = require('../models/promotion');
 module.exports = {
 
     index: async(req ,res ,next) => {
-        const promotion = await Promotion.find({});
+        const promotion = await Promotion.find({}).populate('company');;
 
         if(!promotion){
-            res.status(400).json({ error :  "Promotion not found ! "}).populate('company');
+            res.status(400).json({ error :  "Promotion not found ! "})
         }
 
         res.status(200).json(promotion);
