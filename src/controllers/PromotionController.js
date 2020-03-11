@@ -7,7 +7,7 @@ module.exports = {
         const promotion = await Promotion.find({});
 
         if(!promotion){
-            res.status(400).json({ error :  "Promotion not found ! "});
+            res.status(400).json({ error :  "Promotion not found ! "}).populate('company');
         }
 
         res.status(200).json(promotion);
@@ -15,7 +15,7 @@ module.exports = {
 
     show: async (req, res, next) => { 
 
-        const promotion = await (await Promotion.findById(req.params.promotionId)).populated('company');
+        const promotion = await (await Promotion.findById(req.params.promotionId)).populate('company');
 
         if(!promotion){
             res.status(400).json({ error: "Promotion not found ! "});
@@ -27,7 +27,7 @@ module.exports = {
 
     showByCompany: async(req, res ,next ) => {
 
-        const promotion = await Promotion.find().where('company').equals(req.params.companyId);
+        const promotion = await Promotion.find().where('company').equals(req.params.companyId).populate('company');
 
         if(!promotion){
             res.status(400).json({ error : "Promotion not found !"});

@@ -17,7 +17,12 @@ const PromotionSchema = new Schema({
     company: {
         type: Schema.Types.ObjectId,
         ref: "company"
+    },
+    message: { 
+        type: String,
+        required: false
     }
+
 });
 
 const Promotion = mongoose.model('promotion', PromotionSchema);
