@@ -6,8 +6,8 @@ routes.post('/UserProduct', UserProductController.store);
 
 routes.get('/UserProduct/showByUserId/:userId', UserProductController.showByUser);
 routes.get('/UserProduct/:UserProductId', UserProductController.show);
-routes.patch('/UserProduct:UserProductId', UserProductController.replaceUserProduct);
-routes.put('/UserProduct:UserProductId', UserProductController.update);
-
+routes.patch('/UserProduct/:UserProductId', UserProductController.replaceUserProduct);
+routes.put('/UserProduct/:UserProductId', UserProductController.update);
+routes.get('/UserProduct/scoring', UserProductController.toScore);
 
 module.exports = routes;
