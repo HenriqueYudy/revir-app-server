@@ -2,8 +2,8 @@ const UserPromoController = require('../controllers/UserPromotionController');
 const router = require('express-promise-router')();
 
 
-router
-.route("/")
+
+router.route("/")
 .get(UserPromoController.index)
 .post(UserPromoController.store);
 
@@ -21,3 +21,5 @@ router.route("/companyFilter/:companyId")
 
 router.route("/filter/:userId/:companyId")
       .get(UserPromoController.showByUserAndCompany);
+
+module.exports = router;
