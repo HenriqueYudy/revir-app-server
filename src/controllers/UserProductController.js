@@ -57,37 +57,7 @@ module.exports = {
     }
   },
 
-  toScore: async (req, res, next) => {
-      const value = req.query.value;
-      const company = req.query.company;
-      const user = req.query.user;
-
-      const userCompany = await userCompany.findOne({
-          company: company,
-          user: user
-      });
-
-      if(!userCompany){
-          const newUserCompany = await userCompany.create({
-              user: user,
-              company: company,
-              favorited: false,
-              earned_points: value
-          });
-
-          if(!newUserCompany){
-              res.status(400).json({ error : "It was not possible to score"});
-          }
-          res.status(201).json(newUserCompany);
-      } else {
-
-        userCompany.earned_points += value;
-        await userCompany.save();
-        
-        res.status(200).json(userCompany);
-      }
-
-  },
+ 
 
   replaceUserProduct: async (req, res, next) => {
     const { userProductId } = req.params;

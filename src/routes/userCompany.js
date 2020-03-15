@@ -11,5 +11,5 @@ routes.get('/userCompany/user-points/:userId/:companyId', UserCompanyController.
 routes.get('/userCompany/:userCompanyId', UserCompanyController.show);
 routes.put('/userCompany/:userCompanyId', UserCompanyController.replaceUserCompany);
 routes.patch('/userCompany/:userCompanyId', UserCompanyController.update)
-
+routes.get('/userCompany/point/scoring', UserCompanyController.toScore);
 module.exports = routes;
