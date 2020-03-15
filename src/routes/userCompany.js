@@ -12,4 +12,5 @@ routes.get('/userCompany/:userCompanyId', UserCompanyController.show);
 routes.put('/userCompany/:userCompanyId', UserCompanyController.replaceUserCompany);
 routes.patch('/userCompany/:userCompanyId', UserCompanyController.update)
 routes.get('/userCompany/point/scoring', UserCompanyController.toScore);
+routes.post('/userCompany/coupon/generate', UserCompanyController.generateCoupon);
 module.exports = routes;

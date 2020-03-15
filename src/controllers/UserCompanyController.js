@@ -1,6 +1,7 @@
 const UserCompany = require("../models/UserCompany");
 const UserProduct = require("../models/UserProduct");
 const Company = require("../models/Company");
+const crypto = require('crypto');
 
 module.exports = {
   index: async (req, res, next) => {
@@ -63,6 +64,38 @@ module.exports = {
     }
   },
   
+  generateCoupon: async(req, res , next )=> {
+
+    const company = req.query.company;
+    const product = req.body;
+    const user = req.query.user;
+
+    const userCompany = await UserCompany.findOne({ company: company, user: user });
+
+    if(userCompany.earned_points >= product.required_point){
+
+      const hash = crypto.randomBytes(16);
+
+      userCompany.earned_points -= parseInt(product.required_point);
+      await userCompany.save();
+
+      const newUserProduct = await UserProduct.create({
+        user: user,
+        product: product._id,
+        key: hash.toString("hex"),
+        active: true
+      });
+
+      if(!newUserProduct){
+        res.status(400).json({ error : "an error happened" });
+      } 
+      res.status(201).json(newUserProduct);
+
+    } 
+      res.status(403),json({ error : "insufficient points"});
+
+  },
+
 
   toScore: async (req, res, next) => {
     const value = req.query.value;
