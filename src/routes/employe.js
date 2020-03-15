@@ -10,6 +10,9 @@ router.route('/:employeeId')
     .patch(EmployeeController.update);
 router.route("/authenticate")
     .post(EmployeeController.login);
+
+router.route("/auth/identification")
+    .get(EmployeeController.authentication);
    
 
 module.exports = router;

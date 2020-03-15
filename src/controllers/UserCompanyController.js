@@ -1,4 +1,5 @@
 const UserCompany = require("../models/UserCompany");
+const UserProduct = require("../models/UserProduct");
 const Company = require("../models/Company");
 
 module.exports = {
@@ -61,6 +62,7 @@ module.exports = {
       return res.status(400).json({ error: err });
     }
   },
+  
 
   toScore: async (req, res, next) => {
     const value = req.query.value;

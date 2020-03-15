@@ -42,7 +42,7 @@ module.exports = {
       });
 
     }catch (err ){
-      return res.status(400).send({ error: "Registration failed "});
+      return res.status(400).send({ error: "Registration failed " + err });
     }
   },
 
@@ -62,6 +62,21 @@ module.exports = {
     const token = generateToken({ id: employee.id });
 
     res.send({ token });
+  },
+
+  authentication: async(req, res, next) => {
+    const indent = req.query.identification_code;
+    const company = req.query.company;
+
+    console.log(indent)
+    const employee = await Employee.findOne({ identification_code: indent, company: company });
+    console.log(employee)
+
+    if(!employee){
+      res.status(400).send({ allowed: false });
+    }
+
+    res.status(403).send({ allowed: true });
   },
 
   replaceEmployee: async (req, res, next) => {

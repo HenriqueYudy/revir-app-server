@@ -14,6 +14,11 @@ const EmployeeSchema = new Schema({
         required: true,
         select: false,  
     },
+    identification_code: {
+        type: Number,
+        required: true,
+        select: false
+    },
     company: {
         type: Schema.Types.ObjectId,
         ref: 'company'
