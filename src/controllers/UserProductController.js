@@ -57,7 +57,11 @@ module.exports = {
     }
   },
 
- 
+  useCoupon: async (req, res, next) =>{
+
+    
+
+  },
 
   replaceUserProduct: async (req, res, next) => {
     const { userProductId } = req.params;

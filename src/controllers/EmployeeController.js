@@ -70,10 +70,10 @@ module.exports = {
     console.log(employee)
 
     if(!employee){
-      res.status(400).send({ allowed: false });
+      res.status(403).send({ allowed: false });
     }
 
-    res.status(403).send({ allowed: true });
+    res.status(200).send({ allowed: true });
   },
 
   replaceEmployee: async (req, res, next) => {
