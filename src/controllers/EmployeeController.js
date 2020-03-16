@@ -33,9 +33,6 @@ module.exports = {
 
       const employee = await Employee.create(req.body);
 
-      employee.password = undefined;
-
-      
       return res.send({
         employee,
         token: generateToken({ id: employee.id })
@@ -49,7 +46,7 @@ module.exports = {
   login: async (req, res, next) => {
     const { email, password } = req.body;
 
-    const employee = await Employee.findOne({ email }).select("+password");
+    const employee = await Employee.findOne({ email });
 
     if (!employee) {
       return res.status(400).send({ error: "Employee not found !" });

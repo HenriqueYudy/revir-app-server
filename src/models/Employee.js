@@ -9,11 +9,7 @@ const EmployeeSchema = new Schema({
         required: true,
         unique: true
     },
-    password: {
-        type: String,
-        required: true,
-        select: false,  
-    },
+   
     identification_code: {
         type: Number,
         required: true,

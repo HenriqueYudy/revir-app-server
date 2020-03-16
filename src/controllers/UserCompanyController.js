@@ -4,6 +4,7 @@ const Company = require("../models/Company");
 const crypto = require('crypto');
 
 module.exports = {
+
   index: async (req, res, next) => {
     const userCompany = await UserCompany.find({});
 
@@ -54,6 +55,9 @@ module.exports = {
       res.status(400).send({ error: "Companies not found ! " });
     }
   },
+
+
+
 
   store: async (req, res, next) => {
     try {
