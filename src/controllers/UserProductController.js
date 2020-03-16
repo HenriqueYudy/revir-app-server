@@ -63,6 +63,10 @@ module.exports = {
 
     const coupon = await UserProduct.findById(couponId);
 
+    if(coupon.active == false){
+      res.status(403).json({ error : "this coupon has already been used"});
+    }
+
     if(!coupon){
       res.status(404).json({ error : "Coupon not found "});
     }
