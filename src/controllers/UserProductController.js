@@ -59,7 +59,17 @@ module.exports = {
 
   useCoupon: async (req, res, next) =>{
 
-    
+    const couponId = req.params.couponId;
+
+    const coupon = await UserProduct.findById(couponId);
+
+    if(!coupon){
+      res.status(404).json({ error : "Coupon not found "});
+    }
+
+    coupon.active = false;
+    await coupon.save();
+    res.status(200).json(coupon);
 
   },
 
