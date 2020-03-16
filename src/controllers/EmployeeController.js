@@ -70,7 +70,7 @@ module.exports = {
     console.log(employee)
 
     if(!employee){
-      res.status(403).send({ allowed: false });
+      res.status(200).send({ allowed: false });
     }
 
     res.status(200).send({ allowed: true });
