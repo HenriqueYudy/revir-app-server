@@ -22,11 +22,6 @@ const EmployeeSchema = new Schema({
     active: Boolean
 });
 
-EmployeeSchema.pre('save', async function(next) {
-    const hash = await bcrypt.hash(this.password, 10);
-    this.password = hash;
-    next();
-});
 
 const Employee = mongoose.model('employee', EmployeeSchema);
 module.exports = Employee;

@@ -141,7 +141,7 @@ module.exports = {
     // Save the employee
     await newEmployee.save();
     // Add employee to the company's employees array
-    await company.employee.push(newEmployee.id);
+    await company.employee.push(newEmployee._id);
     // Save the company
     const newcomp = await company.save();
 
